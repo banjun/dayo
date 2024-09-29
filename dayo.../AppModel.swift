@@ -17,5 +17,9 @@ class AppModel {
         case inTransition
         case open
     }
-    var immersiveSpaceState = ImmersiveSpaceState.closed
+    var immersiveSpaceState = ImmersiveSpaceState.closed {
+        didSet {
+            NSLog("%@", "immersiveSpaceState = \(immersiveSpaceState)")
+        }
+    }
 }

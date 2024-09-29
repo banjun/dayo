@@ -7,44 +7,256 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Sphere_Left", "Sphere_Right", "GridMaterial"]
-    def Sphere "Sphere_Right" (
+    def "arisu" (
         active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
+        references = @ありす4.usdz@
     )
     {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.5, 1.5, -1.5)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
 
-    def Sphere "Sphere_Left" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
+        over "Materials"
+        {
+            over "Texture"
+            {
+                reorder nameChildren = ["Texture", "surfaceShader", "uvReader_st", "diffuseColor_texture", "normal_texture", "occlusion_texture", "roughness_texture", "Image", "UVTexture", "PreviewSurface"]
+                token inputs:frame:stPrimvarName (
+                    customData = {
+                        dictionary realitykit = {
+                            float2 positionInSubgraph = (-35.078125, 36.73047)
+                            int stackingOrderInSubgraph = 2
+                        }
+                    }
+                )
+                token outputs:mtlx:surface.connect = </Root/arisu/Materials/Texture/PreviewSurface.outputs:out>
+                token outputs:realitykit:vertex.connect = </Root/arisu/Materials/Texture/GeometryModifier.outputs:out>
+                token outputs:surface.connect = </Root/arisu/Materials/Texture/surfaceShader.outputs:surface>
+                float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (169.625, 128.17969)
+                int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 9
 
-    def "GridMaterial" (
-        active = true
-        prepend references = @Materials/GridMaterial.usda@
-    )
-    {
-        float3 xformOp:scale = (1, 1, 1)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                over "surfaceShader" (
+                    active = false
+                )
+                {
+                    float inputs:ior = 1
+                }
+
+                def Shader "PreviewSurface"
+                {
+                    uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+                    float inputs:clearcoat
+                    float inputs:clearcoatRoughness
+                    color3f inputs:diffuseColor.connect = </Root/arisu/Materials/Texture/Mix.outputs:out>
+                    color3f inputs:emissiveColor.connect = </Root/arisu/Materials/Texture/Mix_1.outputs:out>
+                    float inputs:ior
+                    float inputs:metallic
+                    float3 inputs:normal.connect = </Root/arisu/Materials/Texture/NormalMapDecode.outputs:out>
+                    float inputs:occlusion.connect = </Root/arisu/Materials/Texture/image_3.outputs:out>
+                    float inputs:opacity.connect = None
+                    float inputs:opacityThreshold
+                    float inputs:roughness.connect = </Root/arisu/Materials/Texture/Range.outputs:out>
+                    token outputs:out
+                    float2 ui:nodegraph:node:pos = (330.01947, -12.428853)
+                    int ui:nodegraph:node:stackingOrder = 218
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
+                }
+
+                def Shader "image"
+                {
+                    uniform token info:id = "ND_image_color3"
+                    asset inputs:file = @ありす4/0/baked_mesh_tex0.png@ (
+                        colorSpace = "lin_displayp3"
+                    )
+                    string inputs:filtertype
+                    float2 inputs:texcoord
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (-939.12286, -376.30008)
+                    int ui:nodegraph:node:stackingOrder = 169
+                }
+
+                def Shader "image_1"
+                {
+                    uniform token info:id = "ND_image_float"
+                    asset inputs:file = @ありす4/0/baked_mesh_roughness0.png@
+                    string inputs:filtertype
+                    string inputs:vaddressmode
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-976.37714, 122.38849)
+                    int ui:nodegraph:node:stackingOrder = 42
+                }
+
+                def Shader "image_3"
+                {
+                    uniform token info:id = "ND_image_float"
+                    asset inputs:file = @ありす4/0/baked_mesh_ao0.png@
+                    string inputs:filtertype
+                    float2 inputs:texcoord
+                    string inputs:uaddressmode
+                    string inputs:vaddressmode
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-314.02533, 1076.4252)
+                    int ui:nodegraph:node:stackingOrder = 26
+                }
+
+                def Shader "image_2"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    asset inputs:file = @ありす4/0/baked_mesh_norm0.png@
+                    string inputs:filtertype
+                    string inputs:vaddressmode
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-846.7724, 660.4001)
+                    int ui:nodegraph:node:stackingOrder = 45
+                }
+
+                def Shader "NormalMapDecode"
+                {
+                    uniform token info:id = "ND_normal_map_decode"
+                    float3 inputs:in.connect = </Root/arisu/Materials/Texture/image_2.outputs:out>
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (-550.238, 697.6355)
+                    int ui:nodegraph:node:stackingOrder = 47
+                }
+
+                def Shader "GeometryModifier"
+                {
+                    uniform token info:id = "ND_realitykit_geometrymodifier_2_0_vertexshader"
+                    float3 inputs:bitangent.connect = None
+                    color4f inputs:color
+                    float3 inputs:modelPositionOffset.connect = None
+                    float3 inputs:normal.connect = None
+                    float2 inputs:uv0
+                    float2 inputs:uv1
+                    float4 inputs:uv2
+                    float4 inputs:uv3
+                    float4 inputs:uv4
+                    float4 inputs:uv5
+                    float4 inputs:uv6
+                    token outputs:out
+                    float2 ui:nodegraph:node:pos = (129.75105, 419.63516)
+                    int ui:nodegraph:node:stackingOrder = 28
+                }
+
+                def Shader "image_4"
+                {
+                    uniform token info:id = "ND_image_vector3"
+                    asset inputs:file = @ありす4/0/baked_mesh_disp0.exr@
+                    float2 inputs:texcoord
+                    float3 outputs:out
+                    float2 ui:nodegraph:node:pos = (51.136288, 1146.9072)
+                }
+
+                def Shader "Range"
+                {
+                    uniform token info:id = "ND_range_float"
+                    bool inputs:doclamp
+                    float inputs:in.connect = </Root/arisu/Materials/Texture/image_1.outputs:out>
+                    float inputs:outlow = 0.7
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-635.9554, 295.79272)
+                    int ui:nodegraph:node:stackingOrder = 49
+                }
+
+                def Shader "HSVAdjust"
+                {
+                    uniform token info:id = "ND_hsvadjust_color3"
+                    float3 inputs:amount = (0, 1.1, 1.1)
+                    color3f inputs:in.connect = </Root/arisu/Materials/Texture/image.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (-567.4348, -344.0429)
+                    int ui:nodegraph:node:stackingOrder = 183
+                }
+
+                def Shader "RGBToHSV"
+                {
+                    uniform token info:id = "ND_rgbtohsv_color3"
+                    color3f inputs:in.connect = </Root/arisu/Materials/Texture/image.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (-744.1564, -104.50308)
+                    int ui:nodegraph:node:stackingOrder = 196
+                }
+
+                def Shader "HSVToRGB"
+                {
+                    uniform token info:id = "ND_hsvtorgb_color3"
+                    color3f inputs:in.connect = </Root/arisu/Materials/Texture/Combine3.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (-194.41335, -60.5299)
+                    int ui:nodegraph:node:stackingOrder = 181
+                }
+
+                def Shader "Separate3"
+                {
+                    uniform token info:id = "ND_separate3_color3"
+                    color3f inputs:in.connect = </Root/arisu/Materials/Texture/RGBToHSV.outputs:out>
+                    float outputs:outb
+                    float outputs:outg
+                    float outputs:outr
+                    float2 ui:nodegraph:node:pos = (-598.6457, -192.07355)
+                    int ui:nodegraph:node:stackingOrder = 199
+                }
+
+                def Shader "Combine3"
+                {
+                    uniform token info:id = "ND_combine3_color3"
+                    float inputs:in1.connect = </Root/arisu/Materials/Texture/Separate3.outputs:outr>
+                    float inputs:in2.connect = </Root/arisu/Materials/Texture/Range_2.outputs:out>
+                    float inputs:in3.connect = </Root/arisu/Materials/Texture/Range_1.outputs:out>
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (-268.45044, -172.20483)
+                    int ui:nodegraph:node:stackingOrder = 160
+                }
+
+                def Shader "Range_1"
+                {
+                    uniform token info:id = "ND_range_float"
+                    float inputs:gamma = 0.8
+                    float inputs:in.connect = </Root/arisu/Materials/Texture/Separate3.outputs:outb>
+                    float inputs:inhigh = 0.95
+                    float inputs:inlow = 0.1
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-443.87396, 39.23733)
+                    int ui:nodegraph:node:stackingOrder = 211
+                }
+
+                def Shader "Range_2"
+                {
+                    uniform token info:id = "ND_range_float"
+                    float inputs:gamma = 1.2
+                    float inputs:in.connect = </Root/arisu/Materials/Texture/Separate3.outputs:outg>
+                    float inputs:inhigh = 0.95
+                    float outputs:out
+                    float2 ui:nodegraph:node:pos = (-378.29633, -323.10428)
+                    int ui:nodegraph:node:stackingOrder = 222
+                    string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:inhigh"]
+                }
+
+                def Shader "Mix"
+                {
+                    uniform token info:id = "ND_mix_color3"
+                    color3f inputs:bg = (0.9724968, 0.5741863, 0.48162264) (
+                        colorSpace = "srgb_texture"
+                    )
+                    color3f inputs:fg.connect = </Root/arisu/Materials/Texture/HSVToRGB.outputs:out>
+                    float inputs:mix = 0.94
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (-10.919417, -192.49994)
+                    int ui:nodegraph:node:stackingOrder = 226
+                }
+
+                def Shader "Mix_1"
+                {
+                    uniform token info:id = "ND_mix_color3"
+                    color3f inputs:fg.connect = </Root/arisu/Materials/Texture/Mix.outputs:out>
+                    float inputs:mix = 0.02
+                    color3f outputs:out
+                    float2 ui:nodegraph:node:pos = (88.66143, -45.36197)
+                    int ui:nodegraph:node:stackingOrder = 227
+                }
+            }
+        }
     }
 }
 
