@@ -12,7 +12,9 @@ def Xform "Root"
         references = @ありす4.usdz@
     )
     {
+        reorder nameChildren = ["Materials", "Geometry", "joints"]
         float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
@@ -254,6 +256,214 @@ def Xform "Root"
                     color3f outputs:out
                     float2 ui:nodegraph:node:pos = (88.66143, -45.36197)
                     int ui:nodegraph:node:stackingOrder = 227
+                }
+            }
+        }
+
+        def Xform "joints" (
+            active = true
+        )
+        {
+            reorder nameChildren = ["hip", "hip_1"]
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (-0.00579606, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Xform "hip" (
+                active = true
+            )
+            {
+                reorder nameChildren = ["neck", "chest", "L_hipbone", "R_hipbone"]
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                float3 xformOp:translate = (0, 0.045894682, 0.012438338)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                def Xform "chest" (
+                    active = true
+                )
+                {
+                    reorder nameChildren = ["L_clavicle", "L_shoulder", "R_clavicle", "R_shoulder"]
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    float3 xformOp:scale = (1, 1, 1)
+                    float3 xformOp:translate = (0, 0.023870185, -0.009187076)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                    def Xform "L_clavicle" (
+                        active = true
+                    )
+                    {
+                        float2 ui:nodegraph:node:pos = (20, 20)
+                        int ui:nodegraph:node:stackingOrder = 1
+                        quatf xformOp:orient = (1, 0, 0, 0)
+                        float3 xformOp:scale = (1, 1, 1)
+                        float3 xformOp:translate = (-0.014473559, 0, -0.00892281)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                        def Xform "L_shoulder" (
+                            active = true
+                        )
+                        {
+                            reorder nameChildren = ["L_wrist", "L_elbow"]
+                            float2 ui:nodegraph:node:pos = (20, 20)
+                            int ui:nodegraph:node:stackingOrder = 1
+                            quatf xformOp:orient = (1, 0, 0, 0)
+                            float3 xformOp:scale = (1, 1, 1)
+                            float3 xformOp:translate = (-0.0076434836, 0, 0.00018702913)
+                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                            def Xform "L_elbow" (
+                                active = true
+                            )
+                            {
+                                float2 ui:nodegraph:node:pos = (60, 60)
+                                int ui:nodegraph:node:stackingOrder = 3
+                                quatf xformOp:orient = (1, 0, 0, 0)
+                                float3 xformOp:scale = (1, 1, 1)
+                                float3 xformOp:translate = (-0.0063382853, -0.006848514, -0.0005649505)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                                def Xform "L_wrist" (
+                                    active = true
+                                )
+                                {
+                                    float2 ui:nodegraph:node:pos = (40, 40)
+                                    int ui:nodegraph:node:stackingOrder = 2
+                                    quatf xformOp:orient = (1, 0, 0, 0)
+                                    float3 xformOp:scale = (1, 1, 1)
+                                    float3 xformOp:translate = (-0.02156644, -0.0049888417, -0.00631507)
+                                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                                }
+                            }
+                        }
+                    }
+
+                    def Xform "R_clavicle" (
+                        active = true
+                    )
+                    {
+                        float2 ui:nodegraph:node:pos = (40, 40)
+                        int ui:nodegraph:node:stackingOrder = 2
+                        quatf xformOp:orient = (1, 0, 0, 0)
+                        float3 xformOp:scale = (1, 1, 1)
+                        float3 xformOp:translate = (0.012208786, 0, -0.006433334)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                        def Xform "R_shoulder" (
+                            active = true
+                        )
+                        {
+                            reorder nameChildren = ["R_elbow", "R_wrist"]
+                            float2 ui:nodegraph:node:pos = (40, 40)
+                            int ui:nodegraph:node:stackingOrder = 2
+                            quatf xformOp:orient = (1, 0, 0, 0)
+                            float3 xformOp:scale = (1, 1, 1)
+                            float3 xformOp:translate = (0.005191939, 0.0022649914, 0.003420325)
+                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                            def Xform "R_elbow" (
+                                active = true
+                            )
+                            {
+                                float2 ui:nodegraph:node:pos = (80, 80)
+                                int ui:nodegraph:node:stackingOrder = 4
+                                quatf xformOp:orient = (1, 0, 0, 0)
+                                float3 xformOp:scale = (1, 1, 1)
+                                float3 xformOp:translate = (0.010901995, -0.0110606365, -0.0006366912)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                                def Xform "R_wrist" (
+                                    active = true
+                                )
+                                {
+                                    float2 ui:nodegraph:node:pos = (60, 60)
+                                    int ui:nodegraph:node:stackingOrder = 3
+                                    quatf xformOp:orient = (1, 0, 0, 0)
+                                    float3 xformOp:scale = (1, 1, 1)
+                                    float3 xformOp:translate = (0.01206472, -0.010040391, 0)
+                                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                                }
+                            }
+                        }
+                    }
+                }
+
+                def Xform "neck" (
+                    active = true
+                )
+                {
+                    float2 ui:nodegraph:node:pos = (20, 20)
+                    int ui:nodegraph:node:stackingOrder = 1
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    float3 xformOp:scale = (1, 1, 1)
+                    float3 xformOp:translate = (0, 0.033057414, -0.0060559027)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                    def Xform "head" (
+                        active = true
+                    )
+                    {
+                        reorder nameChildren = ["L_cheek", "R_cheek"]
+                        float2 ui:nodegraph:node:pos = (40, 40)
+                        int ui:nodegraph:node:stackingOrder = 2
+                        quatf xformOp:orient = (1, 0, 0, 0)
+                        float3 xformOp:scale = (1, 1, 1)
+                        float3 xformOp:translate = (0, 0.038831845, -0.00325232)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                        def Xform "L_cheek" (
+                            active = true
+                        )
+                        {
+                            reorder nameChildren = ["L_shoulder", "R_shoulder"]
+                            float2 ui:nodegraph:node:pos = (60, 60)
+                            int ui:nodegraph:node:stackingOrder = 3
+                            quatf xformOp:orient = (1, 0, 0, 0)
+                            float3 xformOp:scale = (1, 1, 1)
+                            float3 xformOp:translate = (-0.019765614, -0.035337083, -0.009407857)
+                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                        }
+
+                        def Xform "R_cheek" (
+                            active = true
+                        )
+                        {
+                            reorder nameChildren = ["L_shoulder", "R_shoulder"]
+                            float2 ui:nodegraph:node:pos = (80, 80)
+                            int ui:nodegraph:node:stackingOrder = 4
+                            quatf xformOp:orient = (1, 0, 0, 0)
+                            float3 xformOp:scale = (1, 1, 1)
+                            float3 xformOp:translate = (0.024082866, -0.035337083, -0.009407857)
+                            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                        }
+                    }
+                }
+
+                def Xform "L_hipbone" (
+                    active = true
+                )
+                {
+                    reorder nameChildren = ["neck", "chest", "L_hipbone"]
+                    float2 ui:nodegraph:node:pos = (20, 20)
+                    int ui:nodegraph:node:stackingOrder = 1
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    float3 xformOp:scale = (1, 1, 1)
+                    float3 xformOp:translate = (-0.01828727, 0, -0.011949463)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                }
+
+                def Xform "R_hipbone" (
+                    active = true
+                )
+                {
+                    reorder nameChildren = ["neck", "chest", "L_hipbone"]
+                    float2 ui:nodegraph:node:pos = (40, 40)
+                    int ui:nodegraph:node:stackingOrder = 2
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    float3 xformOp:scale = (1, 1, 1)
+                    float3 xformOp:translate = (0.011175266, -0.0017025173, -0.011949463)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                 }
             }
         }

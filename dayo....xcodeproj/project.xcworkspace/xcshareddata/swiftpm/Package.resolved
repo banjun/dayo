@@ -1,0 +1,15 @@
+{
+  "originHash" : "35aba951a4563881e18e2ded2fee65f51edfc84c34183172772bbe0bcffd6ac4",
+  "pins" : [
+    {
+      "identity" : "observableanchortrackingsystem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/banjun/ObservableAnchorTrackingSystem",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ec8665e1f42e761cc556667be0b5396abf3bc6f6"
+      }
+    }
+  ],
+  "version" : 3
+}

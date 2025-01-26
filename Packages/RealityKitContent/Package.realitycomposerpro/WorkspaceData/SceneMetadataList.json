@@ -39,18 +39,12 @@
     "objectMetadataList" : [
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "arisu",
-        "Materials",
-        "Texture"
+        "joints",
+        "hip",
+        "chest",
+        "L_clavicle"
       ],
       {
         "isExpanded" : true,
@@ -69,7 +63,11 @@
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "arisu",
-        "Geometry"
+        "joints",
+        "hip",
+        "chest",
+        "R_clavicle",
+        "R_shoulder"
       ],
       {
         "isExpanded" : true,
@@ -79,7 +77,118 @@
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "arisu",
-        "Materials"
+        "joints",
+        "hip",
+        "L_hipbone"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "R_clavicle"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "L_clavicle",
+        "L_shoulder"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "R_clavicle",
+        "R_shoulder",
+        "R_elbow"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "L_clavicle",
+        "L_shoulder",
+        "L_elbow"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "Materials",
+        "Texture"
       ],
       {
         "isExpanded" : true,
@@ -117,9 +226,7 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root",
-        "GridMaterial",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -127,7 +234,9 @@
       },
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root"
+        "Root",
+        "GridMaterial",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,

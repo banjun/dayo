@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EA948C832CA905990003C933 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = EA948C822CA905990003C933 /* RealityKitContent */; };
+		EAAC01172D467A4F00BF2C01 /* ObservableAnchorTrackingSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAAC01172D467A4F00BF2C01 /* ObservableAnchorTrackingSystem in Frameworks */,
 				EA948C832CA905990003C933 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +96,7 @@
 			name = dayo...;
 			packageProductDependencies = (
 				EA948C822CA905990003C933 /* RealityKitContent */,
+				EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */,
 			);
 			productName = dayo...;
 			productReference = EA948C7D2CA905990003C933 /* dayo....app */;
@@ -123,6 +126,9 @@
 			);
 			mainGroup = EA948C742CA905990003C933;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EAAC01152D467A4F00BF2C01 /* XCRemoteSwiftPackageReference "ObservableAnchorTrackingSystem" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EA948C7E2CA905990003C933 /* Products */;
 			projectDirPath = "";
@@ -350,10 +356,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		EAAC01152D467A4F00BF2C01 /* XCRemoteSwiftPackageReference "ObservableAnchorTrackingSystem" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/banjun/ObservableAnchorTrackingSystem";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		EA948C822CA905990003C933 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
+		};
+		EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EAAC01152D467A4F00BF2C01 /* XCRemoteSwiftPackageReference "ObservableAnchorTrackingSystem" */;
+			productName = ObservableAnchorTrackingSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
