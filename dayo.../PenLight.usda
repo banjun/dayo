@@ -1,0 +1,376 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.60.4)"
+    }
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["PenLightHead", "PenLightBody", "Head", "Body", "Grip", "Connection", "EndHead", "EndTail"]
+    float3 xformOp:translate = (0, 0.08, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def Cylinder "Head" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Y"
+        double height = 0.105
+        rel material:binding = </Root/PenLightHead>
+        double radius = 0.01
+        float2 ui:nodegraph:node:pos = (20, 20)
+        int ui:nodegraph:node:stackingOrder = 1
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0.0525, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Body" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        reorder nameChildren = ["Connection", "Grip", "EndHead", "EndTail"]
+        uniform token axis = "Y"
+        double height = 0.055
+        rel material:binding = </Root/PenLightBody>
+        double radius = 0.01
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, -0.0275, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cone "Connection" (
+            active = true
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            customData = {
+                float3 rotationEulerHint = (0, 0, 3.1415927)
+            }
+        )
+        {
+            reorder nameChildren = ["Grip", "EndTail", "EndHead"]
+            uniform token axis = "Y"
+            double height = 0.01
+            rel material:binding = </Root/PenLightBody> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            double radius = 0.01
+            quatf xformOp:orient = (-4.371139e-8, 0, 0, 1)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.8603397e-9, -0.0325, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def Cylinder "Grip" (
+                active = true
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 0.03
+                rel material:binding = </Root/PenLightBody> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                double radius = 0.005
+                float2 ui:nodegraph:node:pos = (-72.09535, 196.08383)
+                int ui:nodegraph:node:stackingOrder = 1
+                quatf xformOp:orient = (4.371139e-8, 0, 0, 1)
+                float3 xformOp:scale = (0.7, 1, 1)
+                float3 xformOp:translate = (5.6699427e-9, 0.009, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Sphere "EndTail" (
+                active = true
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </Root/PenLightBody> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                double radius = 0.006999999999999999
+                float2 ui:nodegraph:node:pos = (20, 20)
+                int ui:nodegraph:node:stackingOrder = 1
+                quatf xformOp:orient = (4.371139e-8, 0, 0, 1)
+                float3 xformOp:scale = (1, 1.5, 1)
+                float3 xformOp:translate = (7.3809683e-9, 0.028749403, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Capsule "EndHead" (
+                active = true
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Y"
+                double height = 0.004
+                rel material:binding = </Root/PenLightBody> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                double radius = 0.006999999999999999
+                quatf xformOp:orient = (4.371139e-8, 0, 0, 1)
+                float3 xformOp:scale = (1, 1, 1)
+                float3 xformOp:translate = (7.203576e-9, 0.02647059, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def Material "PenLightBody"
+    {
+        token cullMode = "back" (
+            allowedTokens = ["unspecified", "none", "front", "back"]
+        )
+        color3f inputs:color = (0.34509805, 0.5058824, 0.75686276) (
+            colorSpace = "srgb_texture"
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-482.73828, 63.0625)
+                }
+            }
+        )
+        token outputs:mtlx:surface.connect = </Root/PenLightBody/PreviewSurface.outputs:out>
+        token outputs:realitykit:vertex
+        token outputs:surface.connect = None
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (0, 110.5)
+
+        def Shader "DefaultSurfaceShader" (
+            active = false
+        )
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (1, 1, 1)
+            float inputs:roughness = 0.75
+            token outputs:surface
+        }
+
+        def Shader "PreviewSurface"
+        {
+            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+            color3f inputs:diffuseColor = (0.34509805, 0.5058824, 0.75686276) (
+                colorSpace = "srgb_texture"
+            )
+            color3f inputs:diffuseColor.connect = </Root/PenLightBody.inputs:color>
+            float inputs:metallic
+            float inputs:roughness = 0.3
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (-255, 105)
+            int ui:nodegraph:node:stackingOrder = 1
+        }
+    }
+
+    def Material "PenLightHead"
+    {
+        token cullMode = "back" (
+            allowedTokens = ["unspecified", "none", "front", "back"]
+        )
+        color3f inputs:color = (0.34509805, 0.5058824, 0.75686276) (
+            colorSpace = "srgb_texture"
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-458.8963, -32.71372)
+                    int stackingOrderInSubgraph = 682
+                }
+            }
+        )
+        token outputs:mtlx:surface.connect = </Root/PenLightHead/PreviewSurface.outputs:out>
+        token outputs:realitykit:vertex
+        token outputs:surface.connect = None
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (460.62354, 116.04716)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 6
+
+        def Shader "DefaultSurfaceShader" (
+            active = false
+        )
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (1, 1, 1)
+            float inputs:roughness = 0.75
+            token outputs:surface
+        }
+
+        def Shader "PreviewSurface"
+        {
+            uniform token info:id = "ND_UsdPreviewSurface_surfaceshader"
+            float inputs:clearcoat
+            float inputs:clearcoatRoughness
+            color3f inputs:diffuseColor = (0.34509805, 0.5058824, 0.75686276) (
+                colorSpace = "srgb_texture"
+            )
+            color3f inputs:diffuseColor.connect = </Root/PenLightHead/HSVAdjust.outputs:out>
+            color3f inputs:emissiveColor = (0.25903326, 0.27734783, 0.30593643) (
+                colorSpace = "srgb_texture"
+            )
+            color3f inputs:emissiveColor.connect = </Root/PenLightHead/Multiply_3.outputs:out>
+            float inputs:ior = 1
+            float inputs:metallic.connect = None
+            float3 inputs:normal.connect = None
+            float inputs:occlusion = 0.1
+            float inputs:opacity
+            float inputs:opacityThreshold
+            float inputs:roughness = 0
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (192.08557, 104.79543)
+            int ui:nodegraph:node:stackingOrder = 659
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["Advanced"]
+        }
+
+        def Shader "ViewDirection"
+        {
+            uniform token info:id = "ND_realitykit_viewdirection_vector3"
+            string inputs:space = "object"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1296.3962, 138.55159)
+            int ui:nodegraph:node:stackingOrder = 728
+        }
+
+        def Shader "Position"
+        {
+            uniform token info:id = "ND_position_vector3"
+            string inputs:space = "object"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1211.3828, 308.96088)
+            int ui:nodegraph:node:stackingOrder = 732
+        }
+
+        def Shader "Range_1"
+        {
+            uniform token info:id = "ND_range_float"
+            bool inputs:doclamp = 1
+            float inputs:gamma = 2.2
+            float inputs:in.connect = </Root/PenLightHead/Multiply_1.outputs:out>
+            float inputs:inhigh = 0.8
+            float inputs:inlow = 0.6
+            float inputs:outhigh = 3
+            float inputs:outlow
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-248.71992, 293.78592)
+            int ui:nodegraph:node:stackingOrder = 696
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out", "inputs:inhigh"]
+        }
+
+        def Shader "Screen"
+        {
+            uniform token info:id = "ND_screen_color3"
+            color3f inputs:bg = (0.34509805, 0.5058824, 0.75686276) (
+                colorSpace = "srgb_texture"
+            )
+            color3f inputs:bg.connect = </Root/PenLightHead/HSVAdjust.outputs:out>
+            color3f inputs:fg = (0.999996, 1, 1) (
+                colorSpace = "srgb_texture"
+            )
+            float inputs:mix.connect = </Root/PenLightHead/Range_1.outputs:out>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-68.16423, 260.5747)
+            int ui:nodegraph:node:stackingOrder = 693
+        }
+
+        def Shader "Noise3D"
+        {
+            uniform token info:id = "ND_noise3d_float"
+            float inputs:amplitude = 1
+            float inputs:pivot = 0.3
+            float3 inputs:position.connect = </Root/PenLightHead/Multiply.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-583.3614, 329.44278)
+            int ui:nodegraph:node:stackingOrder = 777
+        }
+
+        def Shader "Multiply"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/PenLightHead/Position.outputs:out>
+            float inputs:in2 = 1000
+            float inputs:in2.connect = None
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-783.1649, 310.4677)
+            int ui:nodegraph:node:stackingOrder = 704
+        }
+
+        def Shader "Noise3D_1"
+        {
+            uniform token info:id = "ND_noise3d_float"
+            float inputs:amplitude = 1
+            float inputs:pivot = 0.4
+            float3 inputs:position.connect = </Root/PenLightHead/Multiply_2.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-532.8627, 128.83864)
+            int ui:nodegraph:node:stackingOrder = 765
+        }
+
+        def Shader "Multiply_1"
+        {
+            uniform token info:id = "ND_multiply_float"
+            float inputs:in1 = 1
+            float inputs:in1.connect = </Root/PenLightHead/Noise3D_1.outputs:out>
+            float inputs:in2.connect = </Root/PenLightHead/Noise3D.outputs:out>
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-371.5659, 236.94191)
+            int ui:nodegraph:node:stackingOrder = 747
+        }
+
+        def Shader "Normal"
+        {
+            uniform token info:id = "ND_normal_vector3"
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1236.1411, 219.54146)
+            int ui:nodegraph:node:stackingOrder = 730
+        }
+
+        def Shader "CrossProduct_1"
+        {
+            uniform token info:id = "ND_crossproduct_vector3"
+            float3 inputs:in1.connect = </Root/PenLightHead/Multiply_4.outputs:out>
+            float3 inputs:in2.connect = </Root/PenLightHead/Normal.outputs:out>
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-907.86676, 164.73106)
+            int ui:nodegraph:node:stackingOrder = 774
+        }
+
+        def Shader "Multiply_2"
+        {
+            uniform token info:id = "ND_multiply_vector3FA"
+            float3 inputs:in1.connect = </Root/PenLightHead/CrossProduct_1.outputs:out>
+            float inputs:in2 = 10
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-710.83136, 170.89145)
+            int ui:nodegraph:node:stackingOrder = 768
+        }
+
+        def Shader "HSVAdjust"
+        {
+            uniform token info:id = "ND_hsvadjust_color3"
+            float3 inputs:amount = (0, 1.1, 0.7)
+            color3f inputs:in.connect = </Root/PenLightHead.inputs:color>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-209.65207, -11.235035)
+            int ui:nodegraph:node:stackingOrder = 697
+        }
+
+        def Shader "Multiply_3"
+        {
+            uniform token info:id = "ND_multiply_color3FA"
+            color3f inputs:in1.connect = </Root/PenLightHead/Screen.outputs:out>
+            float inputs:in2 = 1.3
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (48.969044, 334.7569)
+            int ui:nodegraph:node:stackingOrder = 690
+        }
+
+        def Shader "Multiply_4"
+        {
+            uniform token info:id = "ND_multiply_vector3"
+            float3 inputs:in1.connect = </Root/PenLightHead/ViewDirection.outputs:out>
+            float3 inputs:in2 = (1, 10.5, 1)
+            float3 outputs:out
+            float2 ui:nodegraph:node:pos = (-1095.6506, 134.33614)
+            int ui:nodegraph:node:stackingOrder = 770
+        }
+    }
+}
+

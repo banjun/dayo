@@ -19,7 +19,38 @@ struct ImmersiveView: View {
             content.add(ObservableAnchorTrackingSystem.createAnchorTargetEntities(anchorTargets: [
                 .hand(.left, location: .joint(for: .littleFingerTip)),
                 .hand(.left, location: .joint(for: .thumbTip)),
+                .hand(.right, location: .palm),
+                .hand(.right, location: .joint(for: .indexFingerKnuckle))
             ], withDebugAxes: false))
+
+            let stageHeight: Float = 1.2
+            let center = Entity()
+            center.position = .init(0, stageHeight, -0.5)
+            center.orientation = .init(angle: .pi, axis: .init(0, 1, 0))
+            let stage = ModelEntity(mesh: .generateCylinder(height: stageHeight, radius: 0.2),
+                                    materials: [SimpleMaterial(color: .black, roughness: 0.3, isMetallic: false)])
+            stage.components.set(OpacityComponent(opacity: 0.95))
+            stage.position.y = -stageHeight / 2
+            stage.generateCollisionShapes(recursive: false, static: true)
+            center.components.set(PhysicsSimulationComponent())
+            stage.components.set(PhysicsBodyComponent(mode: .static))
+            let arisu2Model = model.arisu2.findEntity(named: "Mesh") as! ModelEntity
+            arisu2Model.generateCollisionShapes(recursive: false, static: true) // static?
+            arisu2Model.components.set({
+                var p = PhysicsBodyComponent(massProperties: .init(mass: 0.053), material: .generate(friction: 0, restitution: 1), mode: .dynamic)
+                p.isAffectedByGravity = true
+                p.isRotationLocked = (true, true, true)
+                p.isTranslationLocked = (false, false, false)
+                // p.linearDamping = 1
+                // p.angularDamping = 1
+                return p
+            }())
+
+            center.addChild(stage)
+            center.addChild(model.arisu2)
+            content.add(center)
+
+            content.add(model.penLight)
         } update: { content in
             if let arisu = model.arisu, arisu.parent == nil {
                 content.add(arisu)
@@ -45,8 +76,17 @@ struct ImmersiveView: View {
 //                    .rotated(by: Rotation3D(t.rotation))
 //                t.rotation = .init(r)
 //                let lift = Transform(translation: .init(-0.0, 0.08, -0.03))
-//                model.arisu?.transform = Transform(matrix: t.matrix * lift.matrix)
-//            }
+            //                model.arisu?.transform = Transform(matrix: t.matrix * lift.matrix)
+            //            }
+            let handAnchors = ObservableAnchorTrackingSystem.observable.transforms
+            if let palm = handAnchors[.hand(.right, location: .palm)],
+               let indexFingerKnuckle = handAnchors[.hand(.right, location: .joint(for: .indexFingerKnuckle))] {
+                var t = palm
+                t.translation += t.rotation.act(.init(0, 0.03, 0)) // +y is back->palm, for right hand palm anchor
+                t.rotation = .init(angle: .pi / 8, axis: .init(1, 0.5, -0.1)) * t.rotation // small adjust
+                t.rotation = .init(from: t.rotation.act(.init(0, 1, 0)), to: normalize(indexFingerKnuckle.translation - palm.translation)) * t.rotation
+                model.penLight.transform = t
+            }
         }
         .upperLimbVisibility(model.upperLimbVisibility) // the model occludes hands
         .persistentSystemOverlays(.hidden) // disable home screen button on visionOS 2
@@ -80,13 +120,20 @@ import ARKit
     var xRotation: Angle2D = .radians(-.pi / 6) // .radians(.pi / 2)
     var zRotation: Angle2D = .radians(-.pi / 4)
 
-    init() {
-        Task {
-            arisu = try! await Entity(named: "Immersive", in: realityKitContentBundle).findEntity(named: "arisu")!
-            skyDome = try! await Entity(named: "SkyDome")
-            skyDome.isEnabled = false
-            try! await setupJoints()
-        }
+    var arisu2: Entity!
+    var penLight: PenLight!
+
+    init() async {
+        arisu = try! await Entity(named: "Immersive", in: realityKitContentBundle).findEntity(named: "arisu")!
+        skyDome = try! await Entity(named: "SkyDome")
+        skyDome.isEnabled = false
+        try! await setupJoints()
+        arisu2 = arisu.clone(recursive: true)
+        arisu.findEntity(named: "Mesh")!.components.set(HandPuppetComponent())
+        arisu2.findEntity(named: "Mesh")!.components.set(HandTouchComponent())
+
+        penLight = PenLight()
+        penLight.components.set(ModelSortGroupComponent(group: .planarUIAlwaysInFront, order: 0))
     }
 
     func start() async {
@@ -95,7 +142,8 @@ import ARKit
             return
         }
         ObservableAnchorTrackingSystem.registerSystem()
-        HandIKSystem.registerSystem()
+        HandPuppetIKSystem.registerSystem()
+        HandTouchIKSystem.registerSystem()
     }
 
     func setupJoints() async throws {
@@ -233,15 +281,19 @@ import ARKit
         rig.joints["R_clavicle"]!.limits = .init(weight: 100)
         rig.joints["L_cheek"]!.limits = .init(weight: 100)
         rig.joints["R_cheek"]!.limits = .init(weight: 100)
+        rig.joints["L_hipbone"]!.limits = .init(weight: 5)
+        rig.joints["R_hipbone"]!.limits = .init(weight: 5)
 
         let resource = try IKResource(rig: rig)
         modelEntity.components.set(IKComponent(resource: resource))
     }
 }
 
+struct HandPuppetComponent: Component {}
+
 import ObservableAnchorTrackingSystem
-struct HandIKSystem: System {
-    static let query: EntityQuery = .init(where: .has(IKComponent.self))
+struct HandPuppetIKSystem: System {
+    static let query: EntityQuery = .init(where: .has(HandPuppetComponent.self) && .has(IKComponent.self))
     static var dependencies: [SystemDependency] = [.after(ObservableAnchorTrackingSystem.self)]
     init(scene: RealityKit.Scene) {}
     func update(context: SceneUpdateContext) {
@@ -260,6 +312,79 @@ struct HandIKSystem: System {
                 c.animationOverrideWeight = (1, 1)
             }
             e.components.set(ik)
+        }
+    }
+}
+
+struct HandTouchComponent: Component {
+    var lastJump: Date?
+}
+struct HandTouchIKSystem: System {
+    static let query: EntityQuery = .init(where: .has(HandTouchComponent.self) && .has(IKComponent.self))
+    static var dependencies: [SystemDependency] = [.after(ObservableAnchorTrackingSystem.self)]
+    init(scene: RealityKit.Scene) {}
+    func update(context: SceneUpdateContext) {
+        context.entities(matching: Self.query, updatingSystemWhen: .rendering).forEach { e in
+            let ik = e.components[IKComponent.self]!
+            var touch = e.components[HandTouchComponent.self]!
+            guard let solver = ik.solvers.first else { return }
+            guard case let p as HasPhysicsBody = e else { return }
+            guard let joints = (e as? ModelEntity)?.model?.mesh.contents.skeletons[0].joints else { return }
+
+            let transforms = ObservableAnchorTrackingSystem.observable.transforms
+
+            if let c = solver.constraints["L_wrist"], let t = transforms[.hand(.right, location: .palm)] {
+                let tInE = e.convert(transform: t, from: nil)
+                let distance = distance(tInE.translation, .init(-0.05, 0.12, -0.07))
+                let zDistance = abs(tInE.translation.z + 0.07)
+
+                let mass: Float = 0.053 // match to PhysicsBody mass
+                let impulse: Float = 0.09  // >= 0.13 Ns cause bounce
+                let g: Float = 9.81
+                let duration: Float = 2 * impulse / mass / g
+                let elapsedFromLastJump = touch.lastJump.map { Date().timeIntervalSince($0) }
+                let bind = Transform(matrix: joints.first {$0.name == "L_wrist"}!.inverseBindPoseMatrix.inverse)
+
+                if distance < 0.1 && zDistance < 0.02 {
+                    if let elapsedFromLastJump, elapsedFromLastJump < Double(duration) {
+                        // cool, refrain from another jump
+                    } else {
+                        solver.globalFkWeight = 0.1
+                        p.applyLinearImpulse(.init(0, impulse, 0), relativeTo: nil)
+                        touch.lastJump = Date()
+
+                        c.target = tInE
+                        c.target.translation.z -= 0.03
+                        c.animationOverrideWeight = (1, 0)
+                    }
+                } else {
+                    if let elapsedFromLastJump, elapsedFromLastJump > Double(duration / 2) {
+                        solver.globalFkWeight = 0.8
+                        c.target = bind
+                        c.animationOverrideWeight = (0.2, 0)
+                    }
+                    if let elapsedFromLastJump, elapsedFromLastJump > Double(duration) {
+                        solver.globalFkWeight = 0.8
+                        c.animationOverrideWeight = (0, 0)
+                    }
+                }
+                // c.animationOverrideWeight = (max(0, exp(-2 * (distance * zDistance)) - 0.2), 0.1)
+            }
+            if let c = solver.constraints["R_wrist"], let t = transforms[.hand(.right, location: .palm)] {
+//                c.target = e.convert(transform: t, from: nil)
+//                c.target.translation.y = max(0, c.target.translation.y)
+//                let distance = distance(c.target.translation, .zero)
+//                let zDistance = abs(c.target.translation.z)
+//                c.animationOverrideWeight = (max(0, exp(-2 * (distance * zDistance)) - 0.2), 0.1)
+            }
+            ["hip", "chest", "neck", "head"].forEach { j in
+                if let c = solver.constraints[j] {
+                    c.target = Transform(matrix: joints.first {$0.name == j}!.inverseBindPoseMatrix.inverse)
+                    c.animationOverrideWeight = (1, 1)
+                }
+            }
+            e.components.set(ik)
+            e.components.set(touch)
         }
     }
 }

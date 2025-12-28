@@ -22,4 +22,5 @@ class AppModel {
             NSLog("%@", "immersiveSpaceState = \(immersiveSpaceState)")
         }
     }
+    var immersionStyle: ImmersionStyle = .mixed
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA54BBED2D5D76220049FAFB /* RCPMaterialParameters in Frameworks */ = {isa = PBXBuildFile; productRef = EA54BBEC2D5D76220049FAFB /* RCPMaterialParameters */; };
 		EA948C832CA905990003C933 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = EA948C822CA905990003C933 /* RealityKitContent */; };
 		EAAC01172D467A4F00BF2C01 /* ObservableAnchorTrackingSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAAC01172D467A4F00BF2C01 /* ObservableAnchorTrackingSystem in Frameworks */,
+				EA54BBED2D5D76220049FAFB /* RCPMaterialParameters in Frameworks */,
 				EA948C832CA905990003C933 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +99,7 @@
 			packageProductDependencies = (
 				EA948C822CA905990003C933 /* RealityKitContent */,
 				EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */,
+				EA54BBEC2D5D76220049FAFB /* RCPMaterialParameters */,
 			);
 			productName = dayo...;
 			productReference = EA948C7D2CA905990003C933 /* dayo....app */;
@@ -128,6 +131,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				EAAC01152D467A4F00BF2C01 /* XCRemoteSwiftPackageReference "ObservableAnchorTrackingSystem" */,
+				EA54BBEB2D5D76220049FAFB /* XCRemoteSwiftPackageReference "RCPMaterialParameters" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EA948C7E2CA905990003C933 /* Products */;
@@ -357,6 +361,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EA54BBEB2D5D76220049FAFB /* XCRemoteSwiftPackageReference "RCPMaterialParameters" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/banjun/RCPMaterialParameters";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
+			};
+		};
 		EAAC01152D467A4F00BF2C01 /* XCRemoteSwiftPackageReference "ObservableAnchorTrackingSystem" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/banjun/ObservableAnchorTrackingSystem";
@@ -368,6 +380,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EA54BBEC2D5D76220049FAFB /* RCPMaterialParameters */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA54BBEB2D5D76220049FAFB /* XCRemoteSwiftPackageReference "RCPMaterialParameters" */;
+			productName = RCPMaterialParameters;
+		};
 		EA948C822CA905990003C933 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;

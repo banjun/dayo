@@ -41,45 +41,7 @@
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "arisu",
-        "joints",
-        "hip",
-        "chest",
-        "L_clavicle"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "arisu"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "arisu",
-        "joints",
-        "hip",
-        "chest",
-        "R_clavicle",
-        "R_shoulder"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "arisu",
-        "joints",
-        "hip",
-        "L_hipbone"
+        "Materials"
       ],
       {
         "isExpanded" : true,
@@ -100,10 +62,7 @@
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "arisu",
-        "joints",
-        "hip",
-        "chest",
-        "R_clavicle"
+        "Geometry"
       ],
       {
         "isExpanded" : true,
@@ -112,12 +71,7 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "arisu",
-        "joints",
-        "hip",
-        "chest",
-        "L_clavicle",
-        "L_shoulder"
+        "arisu"
       ],
       {
         "isExpanded" : true,
@@ -160,6 +114,33 @@
         "joints",
         "hip",
         "chest",
+        "R_clavicle"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "R_clavicle",
+        "R_shoulder"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
         "R_clavicle",
         "R_shoulder",
         "R_elbow"
@@ -176,8 +157,31 @@
         "hip",
         "chest",
         "L_clavicle",
-        "L_shoulder",
-        "L_elbow"
+        "L_shoulder"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "neck"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "L_hipbone"
       ],
       {
         "isExpanded" : true,
@@ -189,6 +193,34 @@
         "arisu",
         "Materials",
         "Texture"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "L_clavicle"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "arisu",
+        "joints",
+        "hip",
+        "chest",
+        "L_clavicle",
+        "L_shoulder",
+        "L_elbow"
       ],
       {
         "isExpanded" : true,

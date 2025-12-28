@@ -1,5 +1,5 @@
 {
-  "originHash" : "35aba951a4563881e18e2ded2fee65f51edfc84c34183172772bbe0bcffd6ac4",
+  "originHash" : "c814e5259545553ad7f77587b11f5755c659d67bbd4a4d330ea5d5716e4edcf0",
   "pins" : [
     {
       "identity" : "observableanchortrackingsystem",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "ec8665e1f42e761cc556667be0b5396abf3bc6f6"
+      }
+    },
+    {
+      "identity" : "rcpmaterialparameters",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/banjun/RCPMaterialParameters",
+      "state" : {
+        "revision" : "8d480d596ef49dc2bfec83219f429bc2402ccfc2",
+        "version" : "0.0.2"
       }
     }
   ],
