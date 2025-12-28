@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA22AC802F00FC7F00C5F1D2 /* MetalBloom in Frameworks */ = {isa = PBXBuildFile; productRef = EA22AC7F2F00FC7F00C5F1D2 /* MetalBloom */; };
 		EA54BBED2D5D76220049FAFB /* RCPMaterialParameters in Frameworks */ = {isa = PBXBuildFile; productRef = EA54BBEC2D5D76220049FAFB /* RCPMaterialParameters */; };
 		EA948C832CA905990003C933 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = EA948C822CA905990003C933 /* RealityKitContent */; };
 		EAAC01172D467A4F00BF2C01 /* ObservableAnchorTrackingSystem in Frameworks */ = {isa = PBXBuildFile; productRef = EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA22AC7D2F00FC7400C5F1D2 /* MetalBloom */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MetalBloom; sourceTree = "<group>"; };
 		EA948C7D2CA905990003C933 /* dayo....app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dayo....app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA948C812CA905990003C933 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +47,7 @@
 			files = (
 				EAAC01172D467A4F00BF2C01 /* ObservableAnchorTrackingSystem in Frameworks */,
 				EA54BBED2D5D76220049FAFB /* RCPMaterialParameters in Frameworks */,
+				EA22AC802F00FC7F00C5F1D2 /* MetalBloom in Frameworks */,
 				EA948C832CA905990003C933 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,11 +55,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA22AC7E2F00FC7F00C5F1D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EA948C742CA905990003C933 = {
 			isa = PBXGroup;
 			children = (
 				EA948C7F2CA905990003C933 /* dayo... */,
 				EA948C802CA905990003C933 /* Packages */,
+				EA22AC7E2F00FC7F00C5F1D2 /* Frameworks */,
 				EA948C7E2CA905990003C933 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +83,7 @@
 		EA948C802CA905990003C933 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				EA22AC7D2F00FC7400C5F1D2 /* MetalBloom */,
 				EA948C812CA905990003C933 /* RealityKitContent */,
 			);
 			path = Packages;
@@ -100,6 +112,7 @@
 				EA948C822CA905990003C933 /* RealityKitContent */,
 				EAAC01162D467A4F00BF2C01 /* ObservableAnchorTrackingSystem */,
 				EA54BBEC2D5D76220049FAFB /* RCPMaterialParameters */,
+				EA22AC7F2F00FC7F00C5F1D2 /* MetalBloom */,
 			);
 			productName = dayo...;
 			productReference = EA948C7D2CA905990003C933 /* dayo....app */;
@@ -187,7 +200,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 7;
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
 		};
@@ -214,7 +227,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 7;
-				XROS_DEPLOYMENT_TARGET = 2.0;
+				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
 		};
@@ -380,6 +393,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EA22AC7F2F00FC7F00C5F1D2 /* MetalBloom */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MetalBloom;
+		};
 		EA54BBEC2D5D76220049FAFB /* RCPMaterialParameters */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EA54BBEB2D5D76220049FAFB /* XCRemoteSwiftPackageReference "RCPMaterialParameters" */;

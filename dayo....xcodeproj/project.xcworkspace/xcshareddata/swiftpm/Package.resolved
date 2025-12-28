@@ -1,6 +1,15 @@
 {
-  "originHash" : "c814e5259545553ad7f77587b11f5755c659d67bbd4a4d330ea5d5716e4edcf0",
+  "originHash" : "9d9b08348f849eb5768a492fb08c7093750a19fcee20c5f54d7a5d0f6cb07fc4",
   "pins" : [
+    {
+      "identity" : "metalcompilerplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/schwa/MetalCompilerPlugin",
+      "state" : {
+        "revision" : "36c761478a8e3fb934acf8ef2db4696af95069b4",
+        "version" : "0.1.5"
+      }
+    },
     {
       "identity" : "observableanchortrackingsystem",
       "kind" : "remoteSourceControl",
@@ -17,6 +26,15 @@
       "state" : {
         "revision" : "8d480d596ef49dc2bfec83219f429bc2402ccfc2",
         "version" : "0.0.2"
+      }
+    },
+    {
+      "identity" : "shadergraphcoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/banjun/ShaderGraphCoder",
+      "state" : {
+        "branch" : "macos",
+        "revision" : "ae91a001ef3cfc20af3b916517134025f90d0f9d"
       }
     }
   ],

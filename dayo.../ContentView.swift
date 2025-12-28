@@ -55,6 +55,9 @@ struct ContentView: View {
             Toggle("Hands", isOn: .init(get: {immersiveViewModel.upperLimbVisibility != .hidden}, set: {immersiveViewModel.upperLimbVisibility = $0 ? .automatic : .hidden}))
                 .toggleStyle(.button)
                 .padding()
+            Toggle("Bloom", isOn: $immersiveViewModel.addsBloom)
+                .toggleStyle(.button)
+                .padding()
         }
         .padding()
     }

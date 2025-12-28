@@ -41,5 +41,6 @@ struct App: SwiftUI.App {
             }
         }
         .immersionStyle(selection: $appModel.immersionStyle, in: .mixed, .progressive, .full)
+        .immersiveEnvironmentBehavior(.coexist)
      }
 }

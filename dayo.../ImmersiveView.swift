@@ -9,6 +9,8 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 import ObservableAnchorTrackingSystem
+import MetalBloom
+import ShaderGraphCoder
 
 struct ImmersiveView: View {
     @Environment(AppModel.self) private var appModel
@@ -51,6 +53,9 @@ struct ImmersiveView: View {
             content.add(center)
 
             content.add(model.penLight)
+            content.add(model.penLightBloomScreen)
+
+            stage.recursiveModelEntities.forEach {$0.components.set(ModelSortGroupComponent(group: model.modelSortGroup, order: 0))}
         } update: { content in
             if let arisu = model.arisu, arisu.parent == nil {
                 content.add(arisu)
@@ -123,6 +128,33 @@ import ARKit
     var arisu2: Entity!
     var penLight: PenLight!
 
+    let penLightMetalMap = MetalMap(width: 512, height: 512)
+    var penLightBloomScreen: Entity!
+    var addsBloom: Bool = false {
+        didSet {
+            if addsBloom {
+                penLight.head.components.set(MetalMapSystem.Component(map: penLightMetalMap))
+                if penLightMetalMap.llMesh == nil {
+                    penLightMetalMap.llMesh = try! USDZLowLevelMeshImporter(usdz: penLight.head).mesh
+                }
+                MetalMapSystem.registerSystem()
+                if !(penLight.head.model!.materials.contains { $0 is UnlitMaterial }) {
+                    // workaround: MetalMap currently does not support rendering ShaderGraphMaterial
+                    // for now set Unlit base color
+                    penLight.head.model!.materials.append(UnlitMaterial(texture: try! TextureResource(image: UIGraphicsImageRenderer(size: CGSize(width: 128, height: 128)).image { context in
+                        context.cgContext.setFillColor(CGColor(red: 0.2642586231, green: 0.4716926813, blue: 0.7546463609, alpha: 1))
+                        context.cgContext.fill([CGRect(x: 0, y: 0, width: 128, height: 128)])
+                    }.cgImage!, options: .init(semantic: .color))))
+                }
+            } else {
+                penLight.head.components.remove(MetalMapSystem.Component.self)
+            }
+            penLightBloomScreen.isEnabled = addsBloom
+        }
+    }
+
+    let modelSortGroup: ModelSortGroup = .init(depthPass: .postPass)
+
     init() async {
         arisu = try! await Entity(named: "Immersive", in: realityKitContentBundle).findEntity(named: "arisu")!
         skyDome = try! await Entity(named: "SkyDome")
@@ -133,7 +165,14 @@ import ARKit
         arisu2.findEntity(named: "Mesh")!.components.set(HandTouchComponent())
 
         penLight = PenLight()
-        penLight.components.set(ModelSortGroupComponent(group: .planarUIAlwaysInFront, order: 0))
+//        penLight.components.set(ModelSortGroupComponent(group: .planarUIAlwaysInFront, order: 0))
+        [arisu, arisu2, skyDome, penLight].flatMap(\.recursiveModelEntities).forEach {
+            $0.components.set(ModelSortGroupComponent(group: modelSortGroup, order: 0))
+        }
+
+        penLightBloomScreen = await ModelEntity(mesh: .generateSphere(radius: 5), materials: [ShaderGraphMaterial.screenCoordinateMaterial(texture: penLightMetalMap.textureResource, uniforms: penLightMetalMap.uniformsTextureResource)])
+        // model sort group could be used to invert depth order?
+        penLightBloomScreen.components.set(ModelSortGroupComponent(group: modelSortGroup, order: 999))
     }
 
     func start() async {
