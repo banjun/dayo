@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "puppet.png",
       "idiom" : "vision",
       "scale" : "2x"
     }
